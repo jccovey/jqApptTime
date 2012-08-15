@@ -78,6 +78,8 @@
 
 				dateSel = $(document.createElement("select"));
 
+				dateSel.attr("class", params.select_class);
+
 				for(var day = 0; day < params.maxDays; day++) {
 
 					var present = new Date();
@@ -94,12 +96,16 @@
 			if (params.time) {
 
 				var timeParts = valParts.slice(6,8);
-				var hour = parseInt(timeParts[0] || now.getHours());
-				var minutes = parseInt(timeParts[1] || now.getMinutes());
+				var hour = parseInt(timeParts[0] || now.getHours(), 10);
+				var minutes = parseInt(timeParts[1] || now.getMinutes(), 10);
 
 				hourSel = $(document.createElement("select"));
 				minuteSel = $(document.createElement("select"));
 				ampmSel = $(document.createElement("select"));
+
+				hourSel.attr("class", params.select_class);
+				minuteSel.attr("class", params.select_class);
+				ampmSel.attr("class", params.select_class);
 
 				for(var i = 0; i < 12; i++) {
 					hourSel.append(createOpt(leadingZero(i + 1)));
@@ -129,8 +135,8 @@
 					value = dateSel.val() + " ";
 				}
 
-				if (params.time) {
-					var hour = parseInt(hourSel.val()) + (parseInt(ampmSel.val()) * 12);
+				if (params.time) {					
+					var hour = parseInt(hourSel.val(), 10) + (parseInt(ampmSel.val(), 10) * 12);
 					value += leadingZero(hour) + ":" + minuteSel.val();
 				}
 
